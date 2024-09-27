@@ -85,16 +85,12 @@
         .header img:hover {
             transform: scale(1.05);
         }
-        .header p {
-            margin-top: 10px;
-            font-size: 18px;
-        }
         .content-wrapper {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
         }
-        .content {
+        .main-info {
             flex: 1;
             min-width: 300px;
             margin-right: 20px;
@@ -241,6 +237,23 @@
         .theme-switch span {
             margin-left: 10px;
         }
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 5px;
+            left: 5px;
+            z-index: 1001;
+            background-color: rgba(255, 188, 193, 0.8);
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .dark-theme .mobile-menu-toggle {
+            background-color: rgba(42, 42, 42, 0.8);
+            color: #ff9cc2;
+        }
         @media (max-width: 768px) {
             .sidebar {
                 width: 0;
@@ -257,10 +270,16 @@
             .sidebar:hover + .main-content {
                 margin-left: 0;
             }
+            .mobile-menu-toggle {
+                display: block;
+            }
+            .navigation, .theme-switch {
+                opacity: 1;
+            }
             .content-wrapper {
                 flex-direction: column;
             }
-            .content, .infobox {
+            .main-info, .infobox {
                 width: 100%;
                 margin-right: 0;
             }
@@ -268,6 +287,7 @@
     </style>
 </head>
 <body class="light-theme">
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
     <div class="sidebar" id="sidebar">
         <nav class="navigation">
             <a href="https://visneviye-allei-wiki.github.io/Pages/">Все Статьи Вики</a>
@@ -285,15 +305,14 @@
     </div>
     <div class="main-content">
         <div class="container">
-            <div class="header">
+            <header class="header">
                 <a href="https://visneviye-allei-wiki.github.io/Wiki/">
-                    <img src="images/bannerwiki.png" alt="Добро пожаловать на Вишневые Аллеи Вики" class="banner">
+                    <img src="images/bannerwiki.png" alt="Вишневые Аллеи Вики">
                 </a>
-                <p>Добро пожаловать на Вишневые Аллеи Вики!</p>
-            </div>
-            
+            </header>
+
             <div class="content-wrapper">
-                <div class="content">
+                <main class="main-info">
                     <h2>Основная информация</h2>
                     <p>Kreygen (также известный как Крео) - зашел на сервер 15 декабря 2022 года. Был в бане около 6 раз, а также ломал экономику, деанонил Каса и играл на трех сезонах Вишневого Выживания. Еще он был в топ 5 рейтинга по опыту в гильдии, а именно в гильдиях торговцев пряностями и последователей Монту.</p>
                     
@@ -302,8 +321,9 @@
                     
                     <h2>После захода на сервер</h2>
                     <p>Особо не общался, но после того, как на сервер перешли некоторые участники с Дискордного Лололоша, он начал проявлять актив в чате и вливаться в комьюнити. Почти в тот же день, когда он начал общаться, он был забанен за багоюз, а конкретно за перенос <a href="https://visneviye-allei-wiki.github.io/Sonya">Сони</a> из гильдии воров в торговцев пряностями, ведь тогда покинуть гильдию было невозможно. После разбана, он сломал экономику 11 мая 2023 года и в тот же день был забанен за деанон Каса. Через время, а именно 23 июня того же года, был разбанен.</p>
-                </div>
-                <div class="infobox">
+                </main>
+
+                <aside class="infobox">
                     <h2>Kreygen</h2>
                     <img src="images/Kreygen.png" alt="Kreygen" class="avatar">
                     <table>
@@ -332,7 +352,7 @@
                             <td>Россия, Краснодарский Край, Краснодар</td>
                         </tr>
                     </table>
-                </div>
+                </aside>
             </div>
         </div>
     </div>
@@ -363,6 +383,11 @@
                 setTheme(true);
             }
         });
+
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
     </script>
 </body>
 </html>
