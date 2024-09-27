@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Крейген - Вишневые Аллеи Вики</title>
+    <title>Kreygen - Вишневые Аллеи Вики</title>
     <link rel="icon" href="images/icon.png" type="image/png" sizes="512x512">
     <style>
         body {
@@ -12,6 +12,7 @@
             padding: 0;
             font-size: 16px;
             transition: background-color 0.3s, color 0.3s;
+            display: flex;
         }
         body.light-theme {
             background-color: #ffc0cb;
@@ -20,6 +21,40 @@
         body.dark-theme {
             background-color: #121212;
             color: #e0e0e0;
+        }
+        .sidebar {
+            width: 10px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            z-index: 1000;
+        }
+        .sidebar:hover {
+            width: 250px;
+            padding: 20px;
+        }
+        .light-theme .sidebar {
+            background-color: #ffb6c1;
+            border-right: 1px solid #d147a3;
+        }
+        .dark-theme .sidebar {
+            background-color: #2a2a2a;
+            border-right: 1px solid #ff9cc2;
+        }
+        .main-content {
+            margin-left: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            width: calc(100% - 10px);
+            transition: margin-left 0.3s ease;
+        }
+        .sidebar:hover + .main-content {
+            margin-left: 250px;
         }
         .container {
             max-width: 1200px;
@@ -41,7 +76,7 @@
             margin-bottom: 20px;
         }
         .header img {
-            max-width: 25%;
+            max-width: 100%;
             height: auto;
             border-radius: 10px;
             cursor: pointer;
@@ -53,9 +88,8 @@
         .header p {
             margin-top: 10px;
             font-size: 18px;
-            font-weight: bold;
         }
-        .main-content {
+        .content-wrapper {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -93,92 +127,221 @@
             border-bottom-color: rgba(255, 156, 194, 0.3);
         }
         h2 {
-            color: #d147a3;
             transition: color 0.3s;
+        }
+        .light-theme h2 {
+            color: #d147a3;
         }
         .dark-theme h2 {
             color: #ff9cc2;
         }
         a {
-            color: #d147a3;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
+        }
+        .light-theme a {
+            color: #d147a3;
         }
         .dark-theme a {
             color: #ff9cc2;
         }
-        a:hover {
-            text-decoration: underline;
+        .light-theme a:hover {
+            color: #ff69b4;
+        }
+        .dark-theme a:hover {
+            color: #ffc0cb;
+        }
+        .navigation {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .sidebar:hover .navigation {
+            opacity: 1;
+        }
+        .navigation a {
+            display: block;
+            margin: 10px 0;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .light-theme .navigation a {
+            background-color: #fff;
+            color: #d147a3;
+        }
+        .dark-theme .navigation a {
+            background-color: #3a3a3a;
+            color: #ff9cc2;
+        }
+        .light-theme .navigation a:hover {
+            background-color: #d147a3;
+            color: #fff;
+        }
+        .dark-theme .navigation a:hover {
+            background-color: #ff9cc2;
+            color: #121212;
+        }
+        .theme-switch {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .sidebar:hover .theme-switch {
+            opacity: 1;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #d147a3;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .theme-switch span {
+            margin-left: 10px;
         }
         @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                padding: 0;
+            }
+            .sidebar.active {
+                width: 250px;
+                padding: 20px;
+            }
             .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+            .sidebar:hover + .main-content {
+                margin-left: 0;
+            }
+            .content-wrapper {
                 flex-direction: column;
             }
             .content, .infobox {
                 width: 100%;
                 margin-right: 0;
             }
-            .header img {
-                max-width: 50%;
-            }
         }
     </style>
 </head>
 <body class="light-theme">
-    <div class="container">
-        <div class="header">
-            <a href="https://visneviye-allei-wiki.github.io/Wiki/">
-                <img src="images/bannerwiki.png" alt="Добро пожаловать на Вишневые Аллеи Вики" class="banner">
-            </a>
-            <p>Добро пожаловать на Вишневые Аллеи Вики!</p>
+    <div class="sidebar" id="sidebar">
+        <nav class="navigation">
+            <a href="https://visneviye-allei-wiki.github.io/Pages/">Все Статьи Вики</a>
+            <a href="#">Категории</a>
+            <a href="https://discord.gg/sAkkMxgh7f">Вики Сообщества</a>
+            <a href="https://visneviye-allei-wiki.github.io/sozdateli/">Создатели/Редакторы Вики</a>
+        </nav>
+        <div class="theme-switch">
+            <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider"></span>
+            </label>
+            <span>Темная тема</span>
         </div>
-        
-        <div class="main-content">
-            <div class="content">
-                <h2>Основная информация</h2>
-                <p>Kreygen (также известный как Крео) - зашел на сервер 15 декабря 2022 года. Был в бане около 6 раз, а также ломал экономику, деанонил Каса и играл на трех сезонах Вишневого Выживания. Еще он был в топ 5 рейтинга по опыту в гильдии, а именно в гильдиях торговцев пряностями и последователей Монту.</p>
-                
-                <h2>Как попал на сервер</h2>
-                <p>Зашел на сервер 15 декабря 2022 года, в связи с тем, что заходил на каждый сервер-партнёр Дискордного Лололоша, возможно заходил еще раньше, но доказательств этому нет, потому что его первый аккаунт был забанен в дискорде.</p>
-                
-                <h2>После захода на сервер</h2>
-                <p>Особо не общался, но после того, как на сервер перешли некоторые участники с Дискордного Лололоша, он начал проявлять актив в чате и вливаться в комьюнити. Почти в тот же день, когда он начал общаться, он был забанен за багоюз, а конкретно за перенос <a href="https://visneviye-allei-wiki.github.io/Sonya">Сони</a> из гильдии воров в торговцев пряностями, ведь тогда покинуть гильдию было невозможно. После разбана, он сломал экономику 11 мая 2023 года и в тот же день был забанен за деанон Каса. Через время, а именно 23 июня того же года, был разбанен.</p>
+    </div>
+    <div class="main-content">
+        <div class="container">
+            <div class="header">
+                <a href="https://visneviye-allei-wiki.github.io/Wiki/">
+                    <img src="images/bannerwiki.png" alt="Добро пожаловать на Вишневые Аллеи Вики" class="banner">
+                </a>
+                <p>Добро пожаловать на Вишневые Аллеи Вики!</p>
             </div>
-            <div class="infobox">
-                <h2>Kreygen</h2>
-                <img src="images/Kreygen.png" alt="Kreygen" class="avatar">
-                <table>
-                    <tr>
-                        <td>Имя</td>
-                        <td>Неизвестно</td>
-                    </tr>
-                    <tr>
-                        <td>Должность</td>
-                        <td>Участник</td>
-                    </tr>
-                    <tr>
-                        <td>Возраст</td>
-                        <td>14 лет</td>
-                    </tr>
-                    <tr>
-                        <td>Дата рождения</td>
-                        <td>01.01.2010</td>
-                    </tr>
-                    <tr>
-                        <td>Дата захода на сервер</td>
-                        <td>15.12.2022</td>
-                    </tr>
-                    <tr>
-                        <td>Место рождения</td>
-                        <td>Россия, Краснодарский Край, Краснодар</td>
-                    </tr>
-                </table>
+            
+            <div class="content-wrapper">
+                <div class="content">
+                    <h2>Основная информация</h2>
+                    <p>Kreygen (также известный как Крео) - зашел на сервер 15 декабря 2022 года. Был в бане около 6 раз, а также ломал экономику, деанонил Каса и играл на трех сезонах Вишневого Выживания. Еще он был в топ 5 рейтинга по опыту в гильдии, а именно в гильдиях торговцев пряностями и последователей Монту.</p>
+                    
+                    <h2>Как попал на сервер</h2>
+                    <p>Зашел на сервер 15 декабря 2022 года, в связи с тем, что заходил на каждый сервер-партнёр Дискордного Лололоша, возможно заходил еще раньше, но доказательств этому нет, потому что его первый аккаунт был забанен в дискорде.</p>
+                    
+                    <h2>После захода на сервер</h2>
+                    <p>Особо не общался, но после того, как на сервер перешли некоторые участники с Дискордного Лололоша, он начал проявлять актив в чате и вливаться в комьюнити. Почти в тот же день, когда он начал общаться, он был забанен за багоюз, а конкретно за перенос <a href="https://visneviye-allei-wiki.github.io/Sonya">Сони</a> из гильдии воров в торговцев пряностями, ведь тогда покинуть гильдию было невозможно. После разбана, он сломал экономику 11 мая 2023 года и в тот же день был забанен за деанон Каса. Через время, а именно 23 июня того же года, был разбанен.</p>
+                </div>
+                <div class="infobox">
+                    <h2>Kreygen</h2>
+                    <img src="images/Kreygen.png" alt="Kreygen" class="avatar">
+                    <table>
+                        <tr>
+                            <td>Имя</td>
+                            <td>Неизвестно</td>
+                        </tr>
+                        <tr>
+                            <td>Должность</td>
+                            <td>Участник</td>
+                        </tr>
+                        <tr>
+                            <td>Возраст</td>
+                            <td>14 лет</td>
+                        </tr>
+                        <tr>
+                            <td>Дата рождения</td>
+                            <td>01.01.2010</td>
+                        </tr>
+                        <tr>
+                            <td>Дата захода на сервер</td>
+                            <td>15.12.2022</td>
+                        </tr>
+                        <tr>
+                            <td>Место рождения</td>
+                            <td>Россия, Краснодарский Край, Краснодар</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+
     <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
         function setTheme(isDark) {
-            const body = document.body;
             if (isDark) {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
@@ -189,14 +352,17 @@
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         }
 
+        themeToggle.addEventListener('change', (event) => {
+            setTheme(event.target.checked);
+        });
+
         document.addEventListener('DOMContentLoaded', (event) => {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
+                themeToggle.checked = true;
                 setTheme(true);
             }
         });
-
-        // You can add a theme toggle button if needed
     </script>
 </body>
 </html>
