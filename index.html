@@ -76,7 +76,7 @@
             margin-bottom: 20px;
         }
         .header img {
-            max-width: 50%;
+            max-width: 25%;
             height: auto;
             border-radius: 10px;
             cursor: pointer;
@@ -85,68 +85,18 @@
         .header img:hover {
             transform: scale(1.05);
         }
-        .content-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-        .main-info {
-            flex: 1;
-            min-width: 300px;
-            margin-right: 20px;
-        }
-        .infobox {
-            width: 250px;
-            border: 1px solid #d147a3;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            transition: border-color 0.3s, background-color 0.3s;
-            box-sizing: border-box;
-        }
-        .dark-theme .infobox {
-            border-color: #ff9cc2;
-            background-color: rgba(50, 50, 50, 0.9);
-        }
-        .infobox img {
-            max-width: 100%;
-            border-radius: 5px;
-        }
-        .infobox table {
-            width: 100%;
+        .header h1 {
             margin-top: 10px;
-        }
-        .infobox td {
-            padding: 5px;
-            border-bottom: 1px solid rgba(209, 71, 163, 0.3);
-        }
-        .dark-theme .infobox td {
-            border-bottom-color: rgba(255, 156, 194, 0.3);
-        }
-        h2 {
             transition: color 0.3s;
         }
-        .light-theme h2 {
+        .light-theme .header h1 {
             color: #d147a3;
         }
-        .dark-theme h2 {
+        .dark-theme .header h1 {
             color: #ff9cc2;
         }
-        a {
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .light-theme a {
-            color: #d147a3;
-        }
-        .dark-theme a {
-            color: #ff9cc2;
-        }
-        .light-theme a:hover {
-            color: #ff69b4;
-        }
-        .dark-theme a:hover {
-            color: #ffc0cb;
+        .content {
+            margin-bottom: 20px;
         }
         .navigation {
             margin-top: 40px;
@@ -184,6 +134,31 @@
         .dark-theme .navigation a:hover {
             background-color: #ff9cc2;
             color: #121212;
+        }
+        h2 {
+            transition: color 0.3s;
+        }
+        .light-theme h2 {
+            color: #d147a3;
+        }
+        .dark-theme h2 {
+            color: #ff9cc2;
+        }
+        a {
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .light-theme a {
+            color: #d147a3;
+        }
+        .dark-theme a {
+            color: #ff9cc2;
+        }
+        .light-theme a:hover {
+            color: #ff69b4;
+        }
+        .dark-theme a:hover {
+            color: #ffc0cb;
         }
         .theme-switch {
             display: flex;
@@ -244,7 +219,7 @@
             top: 5px;
             left: 5px;
             z-index: 1001;
-            background-color: rgba(255, 188, 193, 0.8);
+            background-color: rgba(255, 188, 193, 0.8); 
             border: none;
             border-radius: 5px;
             padding: 8px 12px;
@@ -252,8 +227,65 @@
             font-size: 20px;
         }
         .dark-theme .mobile-menu-toggle {
-            background-color: rgba(42, 42, 42, 0.8);
+            background-color: rgba(42, 42, 42, 0.8); 
             color: #ff9cc2;
+        }
+        .divider {
+            border-top: 2px solid #d147a3;
+            margin: 20px 0;
+            transition: border-color 0.3s;
+        }
+        .dark-theme .divider {
+            border-color: #ff9cc2;
+        }
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .main-info {
+            flex: 1;
+            min-width: 300px;
+            margin-right: 20px;
+        }
+        .infobox {
+            width: 250px;
+            border: 1px solid #d147a3;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+        .dark-theme .infobox {
+            border-color: #ff9cc2;
+            background-color: rgba(50, 50, 50, 0.9);
+        }
+        .infobox img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .infobox table {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .infobox td {
+            padding: 5px;
+            border-bottom: 1px solid rgba(209, 71, 163, 0.3);
+        }
+        .dark-theme .infobox td {
+            border-bottom-color: rgba(255, 156, 194, 0.3);
+        }
+        .light-theme .infobox {
+            background-color: rgba(255, 255, 255, 0.9); 
+        }
+        .light-theme .infobox h2, .light-theme .infobox p, .light-theme .infobox td { 
+            background-color: #ff9cc2; 
+            padding: 5px 10px;
+            color: #fff; 
+            border-radius: 5px;
+        }
+        .light-theme .infobox td:first-child {
+            border-radius: 5px 0 0 5px;
         }
         @media (max-width: 768px) {
             .sidebar {
@@ -263,6 +295,9 @@
             .sidebar.active {
                 width: 250px;
                 padding: 20px;
+            }
+            .navigation {
+                margin-top: 60px;
             }
             .main-content {
                 margin-left: 0;
@@ -277,18 +312,33 @@
             .navigation, .theme-switch {
                 opacity: 1;
             }
+            .header img {
+                max-width: 50%;
+            }
             .content-wrapper {
                 flex-direction: column;
             }
-            .main-info, .infobox {
+            .infobox {
                 width: 100%;
+                margin-top: 20px;
+                margin-bottom: 20px; 
+            }
+            .main-info {
                 margin-right: 0;
+                order: 2; 
             }
             .infobox {
-                order: -1;
+                order: 1; 
             }
-            .header img {
-                max-width: 100%;
+            .infobox {
+                margin-right: 0; 
+            }
+            .main-info, .infobox {
+                width: 100%; 
+                box-sizing: border-box;
+            }
+            .main-info p, .infobox p, .infobox td {
+                word-break: break-all;
             }
         }
     </style>
@@ -318,14 +368,16 @@
                 </a>
             </header>
 
+            <div class="divider"></div>
+
             <div class="content-wrapper">
                 <main class="main-info">
                     <h2>Основная информация</h2>
                     <p>Kreygen (также известный как Крео) - зашел на сервер 15 декабря 2022 года. Был в бане около 6 раз, а также ломал экономику, деанонил Каса и играл на трех сезонах Вишневого Выживания. Еще он был в топ 5 рейтинга по опыту в гильдии, а именно в гильдиях торговцев пряностями и последователей Монту.</p>
-                    
+
                     <h2>Как попал на сервер</h2>
                     <p>Зашел на сервер 15 декабря 2022 года, в связи с тем, что заходил на каждый сервер-партнёр Дискордного Лололоша, возможно заходил еще раньше, но доказательств этому нет, потому что его первый аккаунт был забанен в дискорде.</p>
-                    
+
                     <h2>После захода на сервер</h2>
                     <p>Особо не общался, но после того, как на сервер перешли некоторые участники с Дискордного Лололоша, он начал проявлять актив в чате и вливаться в комьюнити. Почти в тот же день, когда он начал общаться, он был забанен за багоюз, а конкретно за перенос <a href="https://visneviye-allei-wiki.github.io/Sonya">Сони</a> из гильдии воров в торговцев пряностями, ведь тогда покинуть гильдию было невозможно. После разбана, он сломал экономику 11 мая 2023 года и в тот же день был забанен за деанон Каса. Через время, а именно 23 июня того же года, был разбанен.</p>
                 </main>
